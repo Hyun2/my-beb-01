@@ -1,11 +1,19 @@
 import { Button, Input } from '@mantine/core';
+import { addNewErc20Token } from '../utils/addNewErc20Token';
+import AddNewErc721Token from '../utils/addNewErc721Token';
+import { useStore } from '../shared/store';
 
 const ErcTokenInput = ({ placeholder, tokenType, setTokenContractType }) => {
-  const handleClick = () => {
+  const [provider, signer] = useStore((state) => [
+    state.provider,
+    state.signer,
+  ]);
+
+  const addNewTokenContract = (provider, signer) => {
     if (tokenType === 'erc20') {
-      console.log('test');
+      addNewErc20Token(provider, signer);
     } else if (tokenType === 'erc721') {
-      console.log('object');
+      AddNewErc721Token(provider, signer);
     }
   };
 
@@ -16,7 +24,9 @@ const ErcTokenInput = ({ placeholder, tokenType, setTokenContractType }) => {
         variant="default"
         placeholder={placeholder}
       />
-      <Button onClick={handleClick}>추가</Button>
+      <Button onClick={() => addNewTokenContract(provider, signer)}>
+        추가
+      </Button>
     </>
   );
 };

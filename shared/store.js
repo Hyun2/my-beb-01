@@ -1,6 +1,14 @@
 import create from 'zustand';
 
 export const useStore = create((set) => ({
+  provider: null,
+  setProvider: (provider) => set({ provider }),
+  signer: null,
+  setSigner: (signer) => set({ signer }),
+  walletAddress: null,
+  setWalletAddress: (walletAddress) => set({ walletAddress }),
+  walletBalance: null,
+  setWalletBalance: (walletBalance) => set({ walletBalance }),
   erc20List: [
     {
       name: 'Ethereum',
@@ -35,8 +43,4 @@ export const useStore = create((set) => ({
     },
   ],
   setErc721List: () => set({}),
-  walletAddress: null,
-  setWalletAddress: (walletAddress) => set({ walletAddress }),
-  walletBalance: null,
-  setWalletBalance: (walletBalance) => set({ walletBalance }),
 }));

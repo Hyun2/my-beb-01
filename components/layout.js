@@ -34,12 +34,19 @@ export default function Layout({ children }) {
     state.walletBalance,
     state.setWalletBalance,
   ]);
+  const [setProvider, setSigner] = useStore((state) => [
+    state.setProvider,
+    state.setSigner,
+  ]);
 
   const handleClickConnectToWallet = async () => {
-    const { walletAddress, walletBalance } = await connectToWallet();
+    const { provider, signer, walletAddress, walletBalance } =
+      await connectToWallet();
     console.log(walletAddress, walletBalance);
     setWalletAddress(walletAddress);
     setWalletBalance(walletBalance);
+    setProvider(provider);
+    setSigner(signer);
   };
 
   return (
