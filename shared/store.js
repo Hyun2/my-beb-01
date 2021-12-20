@@ -5,13 +5,13 @@ export const useStore = create((set) => ({
     {
       name: 'Ethereum',
       symbol: 'ETH',
-      contractAddr: '0x0x0x0x0x',
+      contractAddr: '0x0x0eex0x0x',
       balance: 30000,
     },
     {
       name: 'Ethereum',
       symbol: 'ETH',
-      contractAddr: '0x0x0x0x0x',
+      contractAddr: '0x0x0xa10x0x',
       balance: 30000,
     },
   ],
@@ -20,7 +20,7 @@ export const useStore = create((set) => ({
     {
       name: 'cozyNFT',
       symbol: 'cozy',
-      tokenAddr: '0x0x0x0x0x11',
+      tokenAddr: '0x0x0x30x0x11',
       tokenId: 1,
       tokenURI:
         'https://img1.daumcdn.net/thumb/R300x0/?fname=https://k.kakaocdn.net/dn/bU93Z6/btrdgRxbH4T/zoVrVxIBGM7yKSqEAQDSck/img.png',
@@ -35,4 +35,8 @@ export const useStore = create((set) => ({
     },
   ],
   setErc721List: () => set({}),
+  walletAddress: null,
+  setWalletAddress: (walletAddress) => set({ walletAddress }),
+  walletBalance: null,
+  setWalletBalance: (walletBalance) => set({ walletBalance }),
 }));

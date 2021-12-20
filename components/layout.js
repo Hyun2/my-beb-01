@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { PlusOutlined, WalletOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { connectToWallet } from '../utils/connectToWallet';
+import { useStore } from '../shared/store';
 
 const CButton = styled(Button)`
   display: flex;
@@ -24,6 +26,21 @@ const CButton = styled(Button)`
 export default function Layout({ children }) {
   const [navbarOpend, setNavbarOpened] = useState(false);
   const theme = useMantineTheme();
+  const [walletAddress, setWalletAddress] = useStore((state) => [
+    state.walletAddress,
+    state.setWalletAddress,
+  ]);
+  const [walletBalance, setWalletBalance] = useStore((state) => [
+    state.walletBalance,
+    state.setWalletBalance,
+  ]);
+
+  const handleClickConnectToWallet = async () => {
+    const { walletAddress, walletBalance } = await connectToWallet();
+    console.log(walletAddress, walletBalance);
+    setWalletAddress(walletAddress);
+    setWalletBalance(walletBalance);
+  };
 
   return (
     <AppShell
@@ -69,7 +86,12 @@ export default function Layout({ children }) {
         <Header height={70} padding="md">
           {/* Handle other responsive styles with MediaQuery component or createStyles function */}
           <div
-            style={{ display: 'flex', alignItems: 'center', height: '100%' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              height: '100%',
+              justifyContent: 'space-between',
+            }}
           >
             <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
               <Burger
@@ -80,7 +102,17 @@ export default function Layout({ children }) {
                 mr="xl"
               />
             </MediaQuery>
-            <Button variant="light" color="orange">
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: '14px' }}>{walletAddress}</span>
+              {walletBalance && (
+                <span style={{ fontSize: '14px' }}>{walletBalance} (ETH)</span>
+              )}
+            </div>
+            <Button
+              variant="light"
+              color="orange"
+              onClick={handleClickConnectToWallet}
+            >
               <Image
                 width={28}
                 height={28}

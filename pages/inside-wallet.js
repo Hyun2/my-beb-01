@@ -1,15 +1,9 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Col,
-  Grid,
-  Group,
-  Image,
-  Input,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Col, Grid } from '@mantine/core';
+import { useState } from 'react';
+import AddTokenModal from '../components/TransfertokenModal';
+import Erc20Card from '../components/erc20Card';
+import Erc721Card from '../components/erc721Card';
+import ErcTokenInput from '../components/ercTokenInput';
 import { useStore } from '../shared/store';
 
 const InsideWallet = () => {
@@ -21,89 +15,41 @@ const InsideWallet = () => {
     state.erc721List,
     state.setErc721List,
   ]);
-  const theme = useMantineTheme();
+  const [transferTokenModalOpend, setTransferTokenModalOpend] = useState(false);
+  const [tokenContractAddr, setTokenContractAddr] = useState('');
+  const [tokenContractType, setTokenContractType] = useState('');
 
   return (
     <div>
       <Grid>
         <Col span={5}>
           <div style={{ display: 'flex' }}>
-            <Input
-              style={{ flex: 1, marginRight: '10px' }}
-              variant="default"
+            <ErcTokenInput
+              setTokenContractType={setTokenContractType}
               placeholder="ERC20 Token Contract"
+              tokenType="erc20"
             />
-            <Button>추가</Button>
           </div>
           <div>
             {erc20List.map((erc20) => {
-              return (
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: '10px',
-                    border: '1px solid black',
-                    borderRadius: '4px',
-                    marginTop: '10px',
-                  }}
-                  key={erc20.tokenAddr}
-                >
-                  <span style={{ textAlign: 'center' }}>{erc20.name}</span>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <span
-                      style={{ alignSelf: 'center' }}
-                    >{`${erc20.balance} ${erc20.symbol}`}</span>
-                    <Button>전송</Button>
-                  </div>
-                </div>
-              );
+              return <Erc20Card key={erc20.contractAddr} erc20={erc20} />;
             })}
           </div>
         </Col>
         <Col span={7}>
           <div style={{ display: 'flex' }}>
-            <Input
-              style={{ flex: 1, marginRight: '10px' }}
-              variant="default"
+            <ErcTokenInput
+              setTokenContractType={setTokenContractType}
               placeholder="ERC721 Token Contract"
+              tokenType="erc721"
             />
-            <Button>추가</Button>
           </div>
           <div>
             <Grid>
               {erc721List.map((erc721) => {
                 return (
                   <Col key={erc721.tokenAddr} span={6}>
-                    <Card
-                      style={{ marginTop: '10px' }}
-                      shadow="sm"
-                      padding="lg"
-                    >
-                      <Card.Section>
-                        <Image
-                          src={erc721.tokenURI}
-                          height={160}
-                          alt="Norway"
-                        />
-                      </Card.Section>
-
-                      <Group
-                        position="apart"
-                        style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-                      >
-                        <Text weight={500}>{erc721.name}</Text>
-                        <Badge color="pink" variant="light">
-                          ${erc721.symbol}
-                        </Badge>
-                        <Button>전송</Button>
-                      </Group>
-                    </Card>
+                    <Erc721Card erc721={erc721} />
                   </Col>
                 );
               })}
@@ -111,6 +57,10 @@ const InsideWallet = () => {
           </div>
         </Col>
       </Grid>
+      <AddTokenModal
+        transferTokenModalOpend={transferTokenModalOpend}
+        setTransferTokenModalOpend={setTransferTokenModalOpend}
+      />
     </div>
   );
 };
