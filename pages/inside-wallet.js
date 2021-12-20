@@ -5,6 +5,7 @@ import Erc20Card from '../components/erc20Card';
 import Erc721Card from '../components/erc721Card';
 import ErcTokenInput from '../components/ercTokenInput';
 import { useStore } from '../shared/store';
+import NotLogin from '../components/notLogin';
 
 const InsideWallet = () => {
   const [erc20List, setErc20List] = useStore((state) => [
@@ -18,6 +19,9 @@ const InsideWallet = () => {
   const [transferTokenModalOpend, setTransferTokenModalOpend] = useState(false);
   const [tokenContractAddr, setTokenContractAddr] = useState('');
   const [tokenContractType, setTokenContractType] = useState('');
+  const walletAddress = useStore((state) => state.walletAddress);
+
+  if (!walletAddress) return <NotLogin />;
 
   return (
     <div>
@@ -32,7 +36,9 @@ const InsideWallet = () => {
           </div>
           <div>
             {erc20List.map((erc20) => {
-              return <Erc20Card key={erc20.contractAddr} erc20={erc20} />;
+              return (
+                <Erc20Card key={erc20.tokenContractAddress} erc20={erc20} />
+              );
             })}
           </div>
         </Col>

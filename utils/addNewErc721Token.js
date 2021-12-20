@@ -1,5 +1,5 @@
-export const AddNewErc721Token = (provider, signer) => {
-  console.log(provider, signer);
+export const AddNewErc721Token = (tokenAddress) => {
+  console.log(tokenAddress);
 };
 
 export default AddNewErc721Token;

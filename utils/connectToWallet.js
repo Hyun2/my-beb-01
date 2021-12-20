@@ -11,10 +11,10 @@ export const connectToWallet = async () => {
   const signer = provider.getSigner();
 
   const walletAddress = await signer.getAddress();
-  console.log('Wallet Address: ', walletAddress);
+  // console.log('Wallet Address: ', walletAddress);
 
   let walletBalance = await provider.getBalance(walletAddress);
   walletBalance = ethers.utils.formatEther(walletBalance);
-  console.log('Balance: ', walletBalance);
+  // console.log('Balance: ', walletBalance);
   return { walletAddress, walletBalance, provider, signer };
 };

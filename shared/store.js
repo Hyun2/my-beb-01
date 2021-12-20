@@ -13,17 +13,17 @@ export const useStore = create((set) => ({
     {
       name: 'Ethereum',
       symbol: 'ETH',
-      contractAddr: '0x0x0eex0x0x',
+      tokenContractAddress: '0x0x0eex0x0x',
       balance: 30000,
     },
     {
       name: 'Ethereum',
       symbol: 'ETH',
-      contractAddr: '0x0x0xa10x0x',
+      tokenContractAddress: '0x0x0xa10x0x',
       balance: 30000,
     },
   ],
-  setErc20List: () => set({}),
+  setErc20List: (erc20List) => set({ erc20List }),
   erc721List: [
     {
       name: 'cozyNFT',
