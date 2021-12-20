@@ -45,7 +45,10 @@ const ErcTokenInput = ({ placeholder, tokenType, setTokenContractType }) => {
         onChange={handleChangeTokenAddress}
         value={tokenAddress}
       />
-      <Button onClick={() => addNewTokenContract(tokenAddress, walletAddress)}>
+      <Button
+        variant="light"
+        onClick={() => addNewTokenContract(tokenAddress, walletAddress)}
+      >
         추가
       </Button>
     </>

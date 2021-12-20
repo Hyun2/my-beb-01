@@ -6,6 +6,7 @@ import {
   MediaQuery,
   useMantineTheme,
   Navbar,
+  Badge,
 } from '@mantine/core';
 
 import Image from 'next/image';
@@ -20,6 +21,12 @@ const CButton = styled(Button)`
   display: flex;
   &:hover {
     background-color: grey;
+  }
+`;
+
+const CAppShell = styled(AppShell)`
+  main {
+    background-color: rgb(245, 249, 250);
   }
 `;
 
@@ -38,10 +45,14 @@ export default function Layout({ children }) {
     state.setProvider,
     state.setSigner,
   ]);
+  const [erc20List, setErc20List] = useStore((state) => [
+    state.erc20List,
+    state.setErc20List,
+  ]);
 
   const handleClickConnectToWallet = async () => {
     const { provider, signer, walletAddress, walletBalance } =
-      await connectToWallet();
+      await connectToWallet(erc20List, setErc20List);
     console.log(walletAddress, walletBalance);
     setWalletAddress(walletAddress);
     setWalletBalance(walletBalance);
@@ -50,7 +61,7 @@ export default function Layout({ children }) {
   };
 
   return (
-    <AppShell
+    <CAppShell
       // navbarOffsetBreakpoint controls when navbar should no longer be offset with padding-left
       navbarOffsetBreakpoint="sm"
       // fixed prop on AppShell will be automatically added to Header and Navbar
@@ -110,9 +121,17 @@ export default function Layout({ children }) {
               />
             </MediaQuery>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '14px' }}>{walletAddress}</span>
+              <Badge style={{ fontSize: '14px', marginBottom: '4px' }}>
+                {walletAddress}
+              </Badge>
               {walletBalance && (
-                <span style={{ fontSize: '14px' }}>{walletBalance} (ETH)</span>
+                <Badge
+                  color="gray"
+                  variant="outline"
+                  style={{ fontSize: '14px' }}
+                >
+                  {walletBalance} (ETH)
+                </Badge>
               )}
             </div>
             <Button
@@ -131,7 +150,7 @@ export default function Layout({ children }) {
         </Header>
       }
     >
-      {children}
-    </AppShell>
+      <div>{children}</div>
+    </CAppShell>
   );
 }

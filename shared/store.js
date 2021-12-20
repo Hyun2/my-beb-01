@@ -10,18 +10,12 @@ export const useStore = create((set) => ({
   walletBalance: null,
   setWalletBalance: (walletBalance) => set({ walletBalance }),
   erc20List: [
-    {
-      name: 'Ethereum',
-      symbol: 'ETH',
-      tokenContractAddress: '0x0x0eex0x0x',
-      balance: 30000,
-    },
-    {
-      name: 'Ethereum',
-      symbol: 'ETH',
-      tokenContractAddress: '0x0x0xa10x0x',
-      balance: 30000,
-    },
+    // {
+    //   name: 'Ethereum',
+    //   symbol: 'ETH',
+    //   tokenContractAddress: '0x0x0eex0x0x',
+    //   balance: 30000,
+    // },
   ],
   setErc20List: (erc20List) => set({ erc20List }),
   erc721List: [
