@@ -28,7 +28,7 @@ export const useStore = create((set) => ({
     {
       name: 'cozyNFT',
       symbol: 'cozy',
-      tokenAddr: '0x0x0x30x0x11',
+      tokenContractAddress: '0x0x0x30x0x11',
       tokenId: 1,
       tokenURI:
         'https://img1.daumcdn.net/thumb/R300x0/?fname=https://k.kakaocdn.net/dn/bU93Z6/btrdgRxbH4T/zoVrVxIBGM7yKSqEAQDSck/img.png',
@@ -36,11 +36,13 @@ export const useStore = create((set) => ({
     {
       name: 'cozyNFT',
       symbol: 'cozy',
-      tokenAddr: '0x0x0x0x0x',
+      tokenContractAddress: '0x0x0x0x0x',
       tokenId: 2,
       tokenURI:
         'https://media.vlpt.us/images/leejh9022/post/da20dd70-fd30-44ea-9f31-38aa8a56a3c6/reactjs-thumb.jpg',
     },
   ],
-  setErc721List: () => set({}),
+  setErc721List: (erc721List) => set({ erc721List }),
+  addErc721List: (erc721List, erc721Token) =>
+    set({ erc721List: [...erc721List, erc721Token] }),
 }));

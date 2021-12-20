@@ -30,7 +30,7 @@ const InsideWallet = () => {
           <div style={{ display: 'flex' }}>
             <ErcTokenInput
               setTokenContractType={setTokenContractType}
-              placeholder="ERC20 Token Contract"
+              placeholder="ERC20 Token Contract Address"
               tokenType="erc20"
             />
           </div>
@@ -46,7 +46,7 @@ const InsideWallet = () => {
           <div style={{ display: 'flex' }}>
             <ErcTokenInput
               setTokenContractType={setTokenContractType}
-              placeholder="ERC721 Token Contract"
+              placeholder="ERC721 Token Address"
               tokenType="erc721"
             />
           </div>
@@ -54,7 +54,10 @@ const InsideWallet = () => {
             <Grid>
               {erc721List.map((erc721) => {
                 return (
-                  <Col key={erc721.tokenAddr} span={6}>
+                  <Col
+                    key={erc721.tokenContractAddress + erc721.tokenId}
+                    span={6}
+                  >
                     <Erc721Card erc721={erc721} />
                   </Col>
                 );
